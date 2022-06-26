@@ -23,17 +23,35 @@ public function __construct() {
     }
 }
 
-public function query($string, $DEBUG = 0){
-   $this->QUERY = $this->CONN->prepare($string);
+public function query($query, $DEBUG = 0){
+   $this->QUERY = $this->CONN->prepare($query);
    $this->QUERY->execute();
 
    if ($DEBUG == 1) {
-       print $string;
+       print $query;
     }
 }
 
-public function queryarray() {
-    
+public function queryarray($queryarray, $DEBUG = 0) {
+    $query = "SELECT ".implode(', ', $queryarray['select']);
+    $query .= " FROM ".implode(', ', $queryarray['from']);
+
+    if($queryarray['join']){
+        foreach($queryarray['join'] as $table => $condictions) {
+            $query .= " LEFT JOIN ".$table." ON ".implode(' AND ', $condictions);
+        }
+    }
+    if($queryarray['where']){ 
+        $query .= " WHERE ".implode(' AND ', $queryarray['where']);
+    }
+    if($queryarray['orderby']){ 
+        $query .= " ORDERBY ".implode(' AND ', $queryarray['orderby']);
+    }
+    if($queryarray['limit']){ 
+        $query .= " LIMIT ".implode(', ', $queryarray['limit']);
+    }
+
+    $this->query($query, $DEBUG);
 }
 
 /**

@@ -5,18 +5,30 @@ $db = new DB();
 
 $db->query("SELECT * FROM login", 0);
 
-$data['nome'] = 'sofia';
-$data['cognome'] = 'montagna';
+$query = array();
 
-$where[] = 'id = 1 AND lingua = ita';
+$query['select'][] = "P.*";
+
+$query['from'][] = "prodotti P";
+
+$query['where'][] = "P.id = 1";
+$query['where'][] = "P.lingua = ita";
+
+$query['orderby'][] = "DESC";
+$query['limit'][] = "10,1";
+
+$query['select'][] = "T.*";
+$query['join']['table T'][] = "P.id = T.id";
+
+$query['select'][] = "S.*";
+$query['join']['second S'][] = "T.id = S.id";
 
 
-$prova = implode(' AND ', $where);
 
 //print_r($where['where']);
 //print($prova);
 
-$db -> queryupdate('prova', $data, $where);
+$db -> queryarray($query);
 
 while ($res = $db->next_assoc()){
     print '<pre>';
