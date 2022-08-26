@@ -17,7 +17,7 @@ public function __construct() {
         $this->CONN = new PDO("mysql:host=" . $this->DB_HOST . ";dbname=" . $this->DB_NAME, $this->DB_USER, $this->DB_PASSWORD);
         $this->CONN->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-        echo "Errore: " . $e->getMessage();
+        echo "Connection failed: " . $e->getMessage();
         die();
     }
 }
