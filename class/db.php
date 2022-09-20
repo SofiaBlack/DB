@@ -55,7 +55,7 @@ public function queryarray($queryarray, $DEBUG = 0) {
 }
 
 /**
- * The function uses the PDO's blind method
+ * The function uses the PDO's bind method
  * $table -> table's name
  * $values[array] as field -> new value
  * $where[array|string]
@@ -80,7 +80,7 @@ public function queryupdate($table, $values, $where, $DEBUG = 0){
 }
 
 /**
- * The function uses the PDO's blind method
+ * The function uses the PDO's bind method
  * $table -> table's name
  * $values[array] as field -> new value
  * $DEBUG[0|1] if 1 print the query and the array's datas - default = 0
