@@ -22,9 +22,9 @@ public function __construct() {
     }
 }
 
-public function query($query, $data = 0, $DEBUG = 0){
+public function query($query, $data = array(), $DEBUG = 0){
    $this->QUERY = $this->CONN->prepare($query);
-   if (is_array($data)) {
+   if (count($data) > 0) {
     $this->QUERY->execute($data);
    } else {
     $this->QUERY->execute();
