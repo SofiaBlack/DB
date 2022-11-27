@@ -22,21 +22,15 @@ public function __construct() {
     }
 }
 
-<<<<<<< HEAD
 public function query($query, $DEBUG = 0){
    $this->QUERY = $this->CONN->prepare($query);
-=======
-public function query($query, $data = array(), $DEBUG = 0){
-   $this->QUERY = $this->CONN->prepare($query);
-   if (count($data) > 0) {
-    $this->QUERY->execute($data);
-   } else {
->>>>>>> db69dab5eee1e6854aa1e5447499e8ec2ade1479
     $this->QUERY->execute();
    if ($DEBUG == 1) {
     print_r($query);
  } 
 }
+
+
 
 # Execute queries with the PDO bind method
 private function querybind($query,  $data = array(), $DEBUG = 0){
