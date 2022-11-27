@@ -22,16 +22,21 @@ public function __construct() {
     }
 }
 
-public function query($query, $data = 0, $DEBUG = 0){
+public function query($query, $DEBUG = 0){
    $this->QUERY = $this->CONN->prepare($query);
-   if (is_array($data)) {
-    $this->QUERY->execute($data);
-   } else {
     $this->QUERY->execute();
-   }
    if ($DEBUG == 1) {
-       print $query;
-    }
+    print_r($query);
+ } 
+}
+
+# Execute queries with the PDO bind method
+private function querybind($query,  $data = array(), $DEBUG = 0){
+    $this->QUERY = $this->CONN->prepare($query);
+     $this->QUERY->execute($data);
+    if ($DEBUG == 1) {
+     print_r($query);
+  } 
 }
 
 public function queryarray($queryarray, $DEBUG = 0) {
@@ -55,7 +60,7 @@ public function queryarray($queryarray, $DEBUG = 0) {
 }
 
 /**
- * The function uses the PDO's blind method
+ * The function uses the PDO's bind method
  * $table -> table's name
  * $values[array] as field -> new value
  * $where[array|string]
@@ -76,11 +81,11 @@ public function queryupdate($table, $values, $where, $DEBUG = 0){
     if ($DEBUG == 1) {
         print_r($values);
     }
-    $this->query($query, $values, $DEBUG);
+    $this->querybind($query, $values, $DEBUG);
 }
 
 /**
- * The function uses the PDO's blind method
+ * The function uses the PDO's bind method
  * $table -> table's name
  * $values[array] as field -> new value
  * $DEBUG[0|1] if 1 print the query and the array's datas - default = 0
@@ -98,7 +103,7 @@ function queryinsert($table, $values, $DEBUG = 0){
     if ($DEBUG == 1) {
         print_r($values);
     }
-    $this->query($query, $values, $DEBUG);
+    $this->querybind($query, $values, $DEBUG);
 }
 
 public function next_assoc(){
