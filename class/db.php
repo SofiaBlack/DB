@@ -17,13 +17,21 @@ public function __construct() {
         $this->CONN = new PDO("mysql:host=" . $this->DB_HOST . ";dbname=" . $this->DB_NAME, $this->DB_USER, $this->DB_PASSWORD);
         $this->CONN->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
-        echo "Errore: " . $e->getMessage();
+        echo "Connection failed: " . $e->getMessage();
         die();
     }
 }
 
+<<<<<<< HEAD
 public function query($query, $DEBUG = 0){
    $this->QUERY = $this->CONN->prepare($query);
+=======
+public function query($query, $data = array(), $DEBUG = 0){
+   $this->QUERY = $this->CONN->prepare($query);
+   if (count($data) > 0) {
+    $this->QUERY->execute($data);
+   } else {
+>>>>>>> db69dab5eee1e6854aa1e5447499e8ec2ade1479
     $this->QUERY->execute();
    if ($DEBUG == 1) {
     print_r($query);
