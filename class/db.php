@@ -9,7 +9,7 @@ class DB {
     private $QUERY;
 
 public function __construct() {
-    $this->DB_HOST =  DB_HOST;
+    $this->DB_HOST = DB_HOST;
     $this->DB_NAME = DB_NAME;
     $this->DB_USER = DB_USER;
     $this->DB_PASSWORD = DB_PASSWORD;
@@ -33,7 +33,7 @@ public function query($query, $DEBUG = 0){
 
 
 # Execute queries with the PDO bind method
-private function querybind($query,  $data = array(), $DEBUG = 0){
+public function querybind($query,  $data = array(), $DEBUG = 0){
     $this->QUERY = $this->CONN->prepare($query);
      $this->QUERY->execute($data);
     if ($DEBUG == 1) {
@@ -113,11 +113,11 @@ public function next_assoc(){
 }
 
 public function num_rec(){
-    print $this->QUERY->rowCount();
+    return $this->QUERY->rowCount();
 }
 
 public function last_insert_id() {
-    print $this->CONN->lastInsertId();
+    return $this->CONN->lastInsertId();
 }
 
 
