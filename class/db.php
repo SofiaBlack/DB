@@ -44,18 +44,18 @@ public function querybind($query,  $data = array(), $DEBUG = 0){
 public function queryarray($queryarray, $DEBUG = 0) {
     $query = "SELECT ".implode(', ', $queryarray['select']);
     $query .= " FROM ".implode(', ', $queryarray['from']);
-    if($queryarray['join']){
+    if(isset($queryarray['join'])){
         foreach($queryarray['join'] as $table => $condictions) {
             $query .= " LEFT JOIN ".$table." ON ".implode(' AND ', $condictions);
         }
     }
-    if($queryarray['where']){ 
+    if(isset($queryarray['where'])){ 
         $query .= " WHERE ".implode(' AND ', $queryarray['where']);
     }
-    if($queryarray['orderby']){ 
+    if(isset($queryarray['orderby'])){ 
         $query .= " ORDERBY ".implode(' AND ', $queryarray['orderby']);
     }
-    if($queryarray['limit']){ 
+    if(isset($queryarray['limit'])){ 
         $query .= " LIMIT ".implode(', ', $queryarray['limit']);
     }
     $this->query($query, $DEBUG);
